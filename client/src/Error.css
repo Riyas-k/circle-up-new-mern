@@ -1,0 +1,56 @@
+.main {
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.page-404 {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.page-404 img {
+  width: 300px;
+  max-width: 100%;
+}
+
+.page-404 h2 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.page-404 p {
+  font-size: 18px;
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.page-404 .error-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.page-404 .error-link:hover {
+  text-decoration: underline;
+}
+
+.page-404 #contact-form {
+  margin-top: 30px;
+}
+
+.page-404 .btn {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.page-404 .btn:hover {
+  background-color: #0056b3;
+}
