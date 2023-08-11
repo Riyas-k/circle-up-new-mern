@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const connection = axios.create({
-  baseURL: "http://server.circle-up.online/api",
+  baseURL: "http://circle-up.online/api",
 });
 
 connection.interceptors.request.use(
