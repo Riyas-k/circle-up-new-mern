@@ -75,15 +75,15 @@ const Profile = ({block}) => {
       dispatch(setLoading());
     }
   }, [loading]);
-  // const socket = io("https://ww2.circle-up.online/api");
-  // useEffect(() => {
-  //   socket?.emit("new-user-add", _id);
-  // }, [socket, data]);
+  const socket = io("https://ww2.circle-up.online/api");
+  useEffect(() => {
+    socket?.emit("new-user-add", _id);
+  }, [socket, data]);
   const isProfile = true;
 
   return (
     <Box>
-      <Header socket={{}} />
+      <Header socket={socket} />
       <Box
         width="100%"
         padding="2rem 6%"
