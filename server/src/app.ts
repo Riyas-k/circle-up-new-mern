@@ -15,7 +15,7 @@ const app: Application = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://circle-up.online",
+    origin: ["https://circle-up.online","https://www.circle-up.online"],
     methods: ["GET", "POST"],
   },
 });

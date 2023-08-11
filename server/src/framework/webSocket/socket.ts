@@ -1,6 +1,5 @@
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { AuthServices } from "../services/user/userAuthServiceImp";
 
 let activeUsers: any = [];
 let onlineUsers: any = [];
