@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const configKeys = {
-    MONGO_URL: process.env.MONGODB_URL,
+    MONGO_URL: "mongodb+srv://mohammedriyazriyaz04:7b7z0wpEFRslnCSD@cluster0.balviqn.mongodb.net/",
     PORT: process.env.PORT || 3001,
     JWT_SECRET: process.env.JWT_SECRET,
 };
