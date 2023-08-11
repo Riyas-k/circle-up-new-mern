@@ -4,7 +4,6 @@ import { UserDbInterface } from "../../../application/repositories/user/userRepo
 import { userRepositoryMongoDB } from "../../../framework/database/mongodb/repositories/user/userAuthRepositoryImp";
 import {
   blockCurrUser,
-  getUserFetch,
   getAllUsers,
   getUserData,
   unBlockCurrUser,
