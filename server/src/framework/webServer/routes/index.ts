@@ -6,11 +6,11 @@ import chatRouter from "./user/chat";
 import messageRouter from "./user/message";
 
 const routes = (app: Application) => {
-  app.use("/", authRouter());
-  app.use("/chat", chatRouter());
-  app.use("/admin", adminAuthRouter());
-  app.use("/message", messageRouter());
-  app.use("/", postRouter());
+  app.use("/api", authRouter());
+  app.use("/api/chat", chatRouter());
+  app.use("/api/admin", adminAuthRouter());
+  app.use("/api/message", messageRouter());
+  app.use("/api", postRouter());
 };
 
 export default routes;
