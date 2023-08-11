@@ -46,7 +46,7 @@ function Home({ block }) {
   };
 
   useEffect(() => {}, [click]);
-  const socket = io("http://localhost:3000");
+  const socket = io("https://ww2.circle-up.online/api");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
   }, [socket, data]);

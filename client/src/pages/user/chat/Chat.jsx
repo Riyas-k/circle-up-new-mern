@@ -17,7 +17,7 @@ const Chat = () => {
   const [receiveMessage, setReceiveMessage] = useState(null);
   const user = useSelector((store) => store.user?.payload?.userExist);
   useEffect(() => {
-    socket.current = io("http://localhost:3000");
+    socket.current = io("https://ww2.circle-up.online/api");
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);

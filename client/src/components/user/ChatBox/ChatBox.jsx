@@ -85,7 +85,8 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     }
   };
   const handleVideoCall = async () => {
-    const roomUrl =`https://localhost:5173/room/${user._id}`;
+   
+    const roomUrl =` https://circle-up.online/room/${user._id}`;
     const message = `Join this room to video chat: ${roomUrl}`;
     const event = {
       preventDefault:()=>{},

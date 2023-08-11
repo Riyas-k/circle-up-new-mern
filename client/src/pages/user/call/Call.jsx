@@ -37,7 +37,7 @@ const Call = () => {
       sharedLinks:[
         {
           name:'Copy Link',
-          url:`https://localhost:5173/room/${roomId}`,
+          url:`https://circle-up.online/room/${roomId}`,
 
         }
       ],
