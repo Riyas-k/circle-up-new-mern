@@ -39,7 +39,7 @@ const Profile = ({block}) => {
   const [click, setClick] = useState(false);
   const [run, setRun] = useState(false);
   const [checkId, setCheckId] = useState(false);
-  const data = useSelector((store) => store.user?.payload.userExist);
+  const data = useSelector((store) => store.user?.payload?.userExist);
   const handleClick = () => {
     setRun(!run);
   };
@@ -75,15 +75,15 @@ const Profile = ({block}) => {
       dispatch(setLoading());
     }
   }, [loading]);
-  // const socket = io("https://ww2.circle-up.online/api");
-  // useEffect(() => {
-  //   socket?.emit("new-user-add", _id);
-  // }, [socket, data]);
+  const socket = io("https://ww2.circle-up.online/api");
+  useEffect(() => {
+    socket?.emit("new-user-add", _id);
+  }, [socket, data]);
   const isProfile = true;
 
   return (
     <Box>
-      <Header socket={{}} />
+      <Header socket={socket} />
       <Box
         width="100%"
         padding="2rem 6%"
