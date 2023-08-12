@@ -12,17 +12,18 @@ import UserWidget from "../../components/user/widgets/UserWidget";
 import axios from "../../axios/axios";
 import { setLoading } from "../../redux/postReducer";
 import { io } from "socket.io-client";
-// import { clearUser } from "../../redux/singlereducer";
+import { clearUser } from "../../redux/singlereducer";
 
-const Profile = () => {
+const Profile = ({block}) => {
+  console.log(block,'profile blck');
   const dispatch = useDispatch();
-  // const navigate = useNavigate()
-  // useEffect(()=>{
-  //     if(block==true){
-  //       dispatch(clearUser())
-  //       navigate('/sign-in')
-  //     }
-  // },[block])
+  const navigate = useNavigate()
+  useEffect(()=>{
+      if(block==true){
+        dispatch(clearUser())
+        navigate('/sign-in')
+      }
+  },[block])
   // const blockUserLoading = useSelector((store)=>store.theme.blockLoading);
   //  const navigate = useNavigate()
   // useEffect(()=>{
@@ -54,12 +55,12 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
   }, [click, userId]);
-  const details = useSelector((store) => store.user.payload.userExist);
+  const details = useSelector((store) => store?.user?.payload?.userExist);
   // if (!user) return null;
-  const newData = useSelector((store)=>store.user?.payload.userExist)
-  const { _id, dp } = useSelector((store) => store.user.payload.userExist);
 
-  const loading = useSelector((store) => store.post?.loading);
+  const { _id, dp } = useSelector((store) => store?.user?.payload.userExist);
+
+  const loading = useSelector((store) => store?.post?.loading);
 
   const checkUserId = () => {
     if (userId == _id) setCheckId(true);
@@ -77,7 +78,7 @@ const Profile = () => {
   const socket = io("https://ww2.circle-up.online");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
-  }, [socket, newData]);
+  }, [socket, data]);
   const isProfile = true;
 
   return (
@@ -108,7 +109,8 @@ const Profile = () => {
             flexBasis={isNotMobile ? "42%" : undefined}
             mt={checkId && isNotMobile ? "-0rem" : "-2rem"}
           >
-            {checkId && userId ==data._id && <MyPostWidget dp={dp} details={details} isProfile={isProfile}/>}
+            {" "}
+            {checkId && <MyPostWidget dp={dp} details={details} />}
             <Box m="2rem 0" />
             {/* pass the userId as props */}
             <PostsWidget isProfile={isProfile} userId={userId} dp={dp} socket={socket} />
