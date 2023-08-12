@@ -96,19 +96,19 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     }
   }, [liked, isProfile]);
   useEffect(() => {
-    if ( isProfile ||(follow && isProfile) ) {
+    if ( isProfile ||follow && isProfile ) {
       getUserPosts();
     } else {
       fetchPosts();
     }
   }, [follow, isProfile]);
-  useEffect(() => {
-    if (isProfile === true) {
-      getUserPosts();
-    } else {
-      fetchPosts();
-    }
-  }, [isProfile, userId, click]);
+  // useEffect(() => {
+  //   if (isProfile === true) {
+  //     getUserPosts();
+  //   } else {
+  //     fetchPosts();
+  //   }
+  // }, [isProfile, userId, click]);
   // console.log(isProfile,'pro true');
   return (
     <>

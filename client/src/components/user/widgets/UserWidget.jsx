@@ -103,7 +103,7 @@ const UserWidget = ({ userId, checkId, isProfile,details }) => {
   const fetchUser = async () => {
     await axios.get(`/${userId}/user`).then((res) => {
       setUser(res.data);
-      dispatch(setImageProfile(res?.data?.dp));
+      dispatch(setImageProfile(res.data?.dp));
       if (profile) {
         dispatch(profileLoading());
       }
