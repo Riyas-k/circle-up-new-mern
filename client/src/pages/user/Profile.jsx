@@ -14,21 +14,21 @@ import { setLoading } from "../../redux/postReducer";
 import { io } from "socket.io-client";
 import { clearUser } from "../../redux/singlereducer";
 
-const Profile = ({block}) => {
+const Profile = ({ block }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  useEffect(()=>{
-      if(block==true){
-        dispatch(clearUser())
-        navigate('/sign-in')
-      }
-  },[block])
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (block == true) {
+      dispatch(clearUser());
+      navigate("/sign-in");
+    }
+  }, [block]);
   // const blockUserLoading = useSelector((store)=>store.theme.blockLoading);
   //  const navigate = useNavigate()
   // useEffect(()=>{
   //   if(blockUserLoading){
   //     console.log('hi home');
-    
+
   //       navigate('/sign-in')
   //   }
   // },[blockUserLoading])
@@ -55,9 +55,10 @@ const Profile = ({block}) => {
     fetchUser();
   }, [click, userId]);
   const details = useSelector((store) => store.user?.payload?.userExist);
-  // if (!user) return null;
 
-  const { _id, dp } = useSelector((store) => store.user.payload.userExist);
+  const newData  = useSelector((store) => store.user?.payload.userExist);
+
+   const {_id,dp} = newData
 
   const loading = useSelector((store) => store?.post?.loading);
 
@@ -73,13 +74,13 @@ const Profile = ({block}) => {
       // fetchUser()
       dispatch(setLoading());
     }
-  }, [loading]);    
+  }, [loading]);
   const socket = io("https://ww2.circle-up.online/api");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
-  }, [socket, data]);
+  }, [socket, newData]);
   const isProfile = true;
-  if (!user) return null;
+  // if (!user) return null; 
   return (
     <Box>
       <Header socket={socket} />
@@ -93,14 +94,21 @@ const Profile = ({block}) => {
         <Box flexBasis={isNotMobile ? "26%" : undefined}>
           {/* pass the userId here if it is possible */}
           {user && (
-            <UserWidget userId={userId} isProfile={isProfile} checkId={checkId} profilePic={dp} details={details}/>
+            <UserWidget
+              userId={userId}
+              isProfile={isProfile}
+              checkId={checkId}
+              profilePic={dp}
+              details={details}
+            />
           )}
           <Box m="2rem 0" />
           {/* pass the userId as props */}
           <FriendListWidget
             userId={userId}
             handleEffect={handleEffect}
-            handleClick={handleClick} isProfile
+            handleClick={handleClick}
+            isProfile
           />
         </Box>
         <>
@@ -112,7 +120,12 @@ const Profile = ({block}) => {
             {checkId && <MyPostWidget dp={dp} details={details} />}
             <Box m="2rem 0" />
             {/* pass the userId as props */}
-            <PostsWidget isProfile={isProfile} userId={userId} dp={dp} socket={socket} />
+            <PostsWidget
+              isProfile={isProfile}
+              userId={userId}
+              dp={dp}
+              socket={socket}
+            />
           </Box>
         </>
       </Box>

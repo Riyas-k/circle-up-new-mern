@@ -50,8 +50,8 @@ function Home({ block }) {
   useEffect(() => {
     socket?.emit("new-user-add", _id);
   }, [socket, data]);
-  // if(!data) return null
   const isProfile = false;
+  // if(!data) return null
   return (
     <>
       <Header socket={socket} />
