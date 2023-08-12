@@ -61,12 +61,12 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     setPosts(!posts);
   };
 
-  useEffect(() => {
-    if (loading) {
-      fetchPosts();
-      dispatch(setLoading());
-    }
-  }, [loading, posts]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     fetchPosts();
+  //     dispatch(setLoading());
+  //   }
+  // }, [loading, posts]);
 
   useEffect(() => {
     if (deleted && isProfile) {
