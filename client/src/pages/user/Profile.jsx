@@ -79,7 +79,7 @@ const Profile = ({block}) => {
     socket?.emit("new-user-add", _id);
   }, [socket, data]);
   const isProfile = true;
-
+  if (!user) return null;
   return (
     <Box>
       <Header socket={socket} />
