@@ -7,25 +7,23 @@ import {
   commentLoading,
   deletedLoading,
   likeLoading,
-  profileLoading,
   setLoading,
   setPost,
 } from "../../../redux/postReducer";
 import PostWidget from "./PostWidget";
-import { Box, LinearProgress } from "@mui/material";
-import { followLoading } from "../../../redux/followReducer";
+import { Box, LinearProgress, Pagination } from "@mui/material";
 
-const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
+const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const [posts, setPosts] = useState([]);
   const loading = useSelector((store) => store.post.loading);
   const deleted = useSelector((store) => store.post.deleted);
   const comment = useSelector((store) => store.post.comment);
   const liked = useSelector((store) => store.post.liked);
-  const data = useSelector((store) => store.post);
-  const follow= useSelector((store)=>store?.follow?.loading);
+  // const data = useSelector((store) => store.post);
+  const follow = useSelector((store) => store?.follow?.loading);
   const fetchPosts = async () => {
     const res = await axios.get(`/posts/${userId}`);
     dispatch(setPost(res.data));
@@ -38,21 +36,31 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
   };
   const getUserPosts = async () => {
     // if(isProfile){
-      const res = await axios.get(`/post/${userId}`);
-      setIsLoading(false);
-      setPosts(res.data);
+    const res = await axios.get(`/post/${userId}`);
+    setIsLoading(false);
+    setPosts(res.data);
     // }else{
     //   fetchPosts()
     // }
-   
+
     // dispatch(profileLoading());
     // dispatch(deletedLoading())
+  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 2; // Change the number of posts per page here
+
+  // Pagination Logic
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
   const buttonClicked = () => {
     setPosts(!posts);
   };
 
- 
   useEffect(() => {
     if (loading) {
       fetchPosts();
@@ -60,9 +68,6 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
     }
   }, [loading, posts]);
 
-
-
-  
   useEffect(() => {
     if (deleted && isProfile) {
       getUserPosts();
@@ -74,7 +79,6 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
   }, [deleted, isProfile]);
   useEffect(() => {
     if (comment && isProfile) {
-
       getUserPosts();
       dispatch(commentLoading());
     } else if (comment) {
@@ -84,7 +88,6 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
   }, [comment, isProfile]);
   useEffect(() => {
     if (liked && isProfile) {
-
       getUserPosts();
       dispatch(likeLoading());
     } else if (liked) {
@@ -92,16 +95,15 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
       dispatch(likeLoading());
     }
   }, [liked, isProfile]);
-  useEffect(()=>{
-    if(follow && isProfile || isProfile ){
-      getUserPosts()
-    }else{
-      fetchPosts()
-
-    }
-  },[follow,isProfile])
   useEffect(() => {
-    if (isProfile===true) {
+    if ( isProfile ||(follow && isProfile) ) {
+      getUserPosts();
+    } else {
+      fetchPosts();
+    }
+  }, [follow, isProfile]);
+  useEffect(() => {
+    if (isProfile === true) {
       getUserPosts();
     } else {
       fetchPosts();
@@ -120,16 +122,28 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
         </>
       ) : posts?.length === 0 ? (
         isProfile ? (
-          <h6 style={{  variant: "body2",
-          textAlign: "center", // Center-align the button
-          marginTop: "20px",}}>No posts to show</h6>
+          <h6
+            style={{
+              variant: "body2",
+              textAlign: "center", // Center-align the button
+              marginTop: "20px",
+            }}
+          >
+            No posts to show
+          </h6>
         ) : (
-          <h6 style={{  variant: "body2",
-          textAlign: "center", // Center-align the button
-          marginTop: "20px",}}>Follow some friends to see their posts</h6>
+          <h6
+            style={{
+              variant: "body2",
+              textAlign: "center", // Center-align the button
+              marginTop: "20px",
+            }}
+          >
+            Follow some friends to see their posts
+          </h6>
         )
       ) : (
-        [...posts]
+        currentPosts
           .reverse()
           .map(
             ({
@@ -142,9 +156,10 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
               comments,
               report,
               createdAt,
-              adminDeleted
+              adminDeleted,
             }) => {
-              if (!adminDeleted) { // Check if adminDeleted is false
+              if (!adminDeleted) {
+                // Check if adminDeleted is false
                 return (
                   <PostWidget
                     key={_id}
@@ -170,6 +185,16 @@ const PostsWidget = ({ click, isProfile, userId, dp,socket }) => {
               }
             }
           )
+      )}
+      {currentPosts?.length > 0 && (
+        <Box display="flex" justifyContent="center" mt={3}>
+          <Pagination
+            count={Math.ceil(posts?.length / postsPerPage)}
+            page={currentPage} variant="outlined"
+            onChange={(event, page) => paginate(page)}
+            color="primary"
+          />
+        </Box>
       )}
     </>
   );
