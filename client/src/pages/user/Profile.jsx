@@ -75,7 +75,7 @@ const Profile = ({ block }) => {
       dispatch(setLoading());
     }
   }, [loading]);
-  const socket = io("https://ww2.circle-up.online/api");
+  const socket = io("https://ww2.circle-up.online/");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
   }, [socket, newData]);
