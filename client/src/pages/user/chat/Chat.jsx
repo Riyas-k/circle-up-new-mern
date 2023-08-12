@@ -43,7 +43,7 @@ const Chat = () => {
   useEffect(() => {
     const getChats = async () => {
       try {
-        const { data } = await axios.get(`chat/${user?._id}`);
+        const { data } = await axios.get(`chat/${user._id}`);
         console.log(data.chats);
         setChats(data?.chats);
       } catch (error) {
@@ -52,7 +52,7 @@ const Chat = () => {
     };
     getChats();
   
-  }, [user?._id]);
+  }, [user._id]);
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member != user._id);
     const online = onlineUsers.find((user) => user.userId == chatMember);
@@ -74,7 +74,7 @@ const Chat = () => {
                   <div key={chat} onClick={() => setCurrentChat(chat)}>
                     <Conversation
                       data={chat}
-                      currentUser={user?._id}
+                      currentUser={user._id}
                       online={checkOnlineStatus(chat)}
                     />
                   </div>
@@ -87,7 +87,7 @@ const Chat = () => {
           <React.Fragment key={currentChat}>
             <ChatBox
               chat={currentChat}
-              currentUser={user?._id}
+              currentUser={user._id}
               setSendMessage={setSendMessage}
               receivedMessage={receiveMessage}
             />

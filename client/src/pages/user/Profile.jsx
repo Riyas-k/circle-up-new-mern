@@ -56,7 +56,7 @@ const Profile = ({ block }) => {
   }, [click, userId]);
   const details = useSelector((store) => store.user?.payload?.userExist);
 
-  const newData  = useSelector((store) => store.user?.payload.userExist);
+  const newData  = useSelector((store) => store.user.payload.userExist);
 
    const {_id,dp} = newData
 
