@@ -12,17 +12,17 @@ import UserWidget from "../../components/user/widgets/UserWidget";
 import axios from "../../axios/axios";
 import { setLoading } from "../../redux/postReducer";
 import { io } from "socket.io-client";
-import { clearUser } from "../../redux/singlereducer";
+// import { clearUser } from "../../redux/singlereducer";
 
-const Profile = ({block}) => {
+const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  useEffect(()=>{
-      if(block==true){
-        dispatch(clearUser())
-        navigate('/sign-in')
-      }
-  },[block])
+  // const navigate = useNavigate()
+  // useEffect(()=>{
+  //     if(block==true){
+  //       dispatch(clearUser())
+  //       navigate('/sign-in')
+  //     }
+  // },[block])
   // const blockUserLoading = useSelector((store)=>store.theme.blockLoading);
   //  const navigate = useNavigate()
   // useEffect(()=>{
