@@ -56,7 +56,7 @@ const Profile = () => {
   }, [click, userId]);
   const details = useSelector((store) => store.user.payload.userExist);
   // if (!user) return null;
-
+  const newData = useSelector((store)=>store.user.payload.userExist)
   const { _id, dp } = useSelector((store) => store.user.payload.userExist);
 
   const loading = useSelector((store) => store.post.loading);
@@ -77,7 +77,7 @@ const Profile = () => {
   const socket = io("https://ww2.circle-up.online");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
-  }, [socket, data]);
+  }, [socket, newData]);
   const isProfile = true;
 
   return (
