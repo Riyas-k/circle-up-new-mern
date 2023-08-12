@@ -15,7 +15,6 @@ import { io } from "socket.io-client";
 import { clearUser } from "../../redux/singlereducer";
 
 const Profile = ({block}) => {
-  console.log(block,'profile blck');
   const dispatch = useDispatch();
   const navigate = useNavigate()
   useEffect(()=>{
@@ -55,10 +54,10 @@ const Profile = ({block}) => {
   useEffect(() => {
     fetchUser();
   }, [click, userId]);
-  const details = useSelector((store) => store?.user?.payload?.userExist);
+  const details = useSelector((store) => store.user?.payload?.userExist);
   // if (!user) return null;
 
-  const { _id, dp } = useSelector((store) => store?.user?.payload.userExist);
+  const { _id, dp } = useSelector((store) => store.user.payload.userExist);
 
   const loading = useSelector((store) => store?.post?.loading);
 
@@ -74,7 +73,7 @@ const Profile = ({block}) => {
       // fetchUser()
       dispatch(setLoading());
     }
-  }, [loading]);
+  }, [loading]);    
   const socket = io("https://ww2.circle-up.online/api");
   useEffect(() => {
     socket?.emit("new-user-add", _id);
