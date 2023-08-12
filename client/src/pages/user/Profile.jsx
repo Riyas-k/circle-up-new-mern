@@ -54,12 +54,12 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
   }, [click, userId]);
-  const details = useSelector((store) => store?.user?.payload?.userExist);
+  const details = useSelector((store) => store.user.payload.userExist);
   // if (!user) return null;
 
-  const { _id, dp } = useSelector((store) => store?.user?.payload.userExist);
+  const { _id, dp } = useSelector((store) => store.user.payload.userExist);
 
-  const loading = useSelector((store) => store?.post?.loading);
+  const loading = useSelector((store) => store.post.loading);
 
   const checkUserId = () => {
     if (userId == _id) setCheckId(true);
@@ -108,7 +108,7 @@ const Profile = () => {
             flexBasis={isNotMobile ? "42%" : undefined}
             mt={checkId && isNotMobile ? "-0rem" : "-2rem"}
           >
-            {checkId && userId ==data?._id && <MyPostWidget dp={dp} details={details} isProfile={isProfile}/>}
+            {checkId && userId ==data._id && <MyPostWidget dp={dp} details={details} isProfile={isProfile}/>}
             <Box m="2rem 0" />
             {/* pass the userId as props */}
             <PostsWidget isProfile={isProfile} userId={userId} dp={dp} socket={socket} />
