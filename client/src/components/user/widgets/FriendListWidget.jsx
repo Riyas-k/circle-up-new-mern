@@ -119,7 +119,7 @@ const FriendListWidget = ({
         >
           Followers
         </Typography>
-        {followersToShow?.length == 0 && <p>No followers</p>}
+        {followers?.length == 0 && <p>No followers</p>}
         <Box display="flex" flexDirection="column" gap="1.5rem">
           {followersToShow?.map((state) => {
             return (
@@ -137,7 +137,7 @@ const FriendListWidget = ({
             );
           })}
         </Box>
-        {followersToShow.length > itemsPerRow && !expanded && (
+        {followers.length > itemsPerRow && !expanded && (
           <Typography
             sx={{
               cursor: "pointer",
@@ -164,9 +164,9 @@ const FriendListWidget = ({
           Following
         </Typography>
        
-        {followingToShow?.length == 0 && <p>No following to display</p>}
+        {following?.length == 0 && <p>No following to display</p>}
         <Box display="flex" flexDirection="column" gap="1.5rem">
-          {followingToShow?.reverse().map((state) => {
+          {followingToShow?.map((state) => {
             return (
               <Friend
                 friendId={state?._id}
@@ -181,7 +181,7 @@ const FriendListWidget = ({
             );
           })}
         </Box>
-        {followingToShow.length > itemsPerRow && !expanded && (
+        {following.length > itemsPerRow && !expanded && (
           <Typography
             sx={{
               cursor: "pointer",
@@ -209,7 +209,7 @@ const FriendListWidget = ({
             >
               Suggestions
             </Typography>
-            {suggestionsToShow?.length == 0 && <p>No Suggestions.</p>}
+            {suggestions?.length == 0 && <p>No Suggestions.</p>}
             <Box display="flex" flexDirection="column" gap="1.5rem">
               {suggestionsToShow?.map((state) => {
                 return (
@@ -226,7 +226,7 @@ const FriendListWidget = ({
                 );
               })}
             </Box>
-            {suggestionsToShow.length > itemsPerRow && !expanded && (
+            {suggestions.length > itemsPerRow && !expanded && (
               <Typography
                 sx={{
                   cursor: "pointer",
