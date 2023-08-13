@@ -119,7 +119,7 @@ const FriendListWidget = ({
         >
           Followers
         </Typography>
-        {followers?.length == 0 && <p>No followers</p>}
+        {followersToShow?.length == 0 && <p>No followers</p>}
         <Box display="flex" flexDirection="column" gap="1.5rem">
           {followersToShow?.map((state) => {
             return (
@@ -137,7 +137,7 @@ const FriendListWidget = ({
             );
           })}
         </Box>
-        {followers.length > itemsPerRow && !expanded && (
+        {followersToShow.length > itemsPerRow && !expanded && (
           <Typography
             sx={{
               cursor: "pointer",
@@ -164,7 +164,7 @@ const FriendListWidget = ({
           Following
         </Typography>
        
-        {following?.length == 0 && <p>No following to display</p>}
+        {followingToShow?.length == 0 && <p>No following to display</p>}
         <Box display="flex" flexDirection="column" gap="1.5rem">
           {followingToShow?.reverse().map((state) => {
             return (
@@ -181,7 +181,7 @@ const FriendListWidget = ({
             );
           })}
         </Box>
-        {following.length > itemsPerRow && !expanded && (
+        {followingToShow.length > itemsPerRow && !expanded && (
           <Typography
             sx={{
               cursor: "pointer",
@@ -209,7 +209,7 @@ const FriendListWidget = ({
             >
               Suggestions
             </Typography>
-            {suggestions?.length == 0 && <p>No Suggestions.</p>}
+            {suggestionsToShow?.length == 0 && <p>No Suggestions.</p>}
             <Box display="flex" flexDirection="column" gap="1.5rem">
               {suggestionsToShow?.map((state) => {
                 return (
@@ -226,7 +226,7 @@ const FriendListWidget = ({
                 );
               })}
             </Box>
-            {suggestions.length > itemsPerRow && !expanded && (
+            {suggestionsToShow.length > itemsPerRow && !expanded && (
               <Typography
                 sx={{
                   cursor: "pointer",
