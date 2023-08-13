@@ -121,7 +121,7 @@ const FriendListWidget = ({
         </Typography>
         {followers?.length == 0 && <p>No followers</p>}
         <Box display="flex" flexDirection="column" gap="1.5rem">
-          {followersToShow?.reverse().map((state) => {
+          {followersToShow?.map((state) => {
             return (
               <Friend
                 key={state?._id}
@@ -211,7 +211,7 @@ const FriendListWidget = ({
             </Typography>
             {suggestions?.length == 0 && <p>No Suggestions.</p>}
             <Box display="flex" flexDirection="column" gap="1.5rem">
-              {suggestionsToShow?.reverse().map((state) => {
+              {suggestionsToShow?.map((state) => {
                 return (
                   <Friend
                     friendId={state?._id}
