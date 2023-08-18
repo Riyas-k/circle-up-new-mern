@@ -72,9 +72,9 @@ export const checkUser = async (
   userRepository: ReturnType<UserDbInterface>,
   authService: ReturnType<AuthServiceInterface>
 ) => {
-  const isEmailExist: any = await userRepository.getUserByEmail(email);
-  if (isEmailExist) {
-    return { status: true, isEmailExist };
+  const userExist: any = await userRepository.getUserByEmail(email);
+  if (userExist) {
+    return { status: true, userExist };
   } else {
     return { status: false };
   }

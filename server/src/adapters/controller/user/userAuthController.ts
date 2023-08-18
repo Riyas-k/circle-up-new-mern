@@ -88,7 +88,7 @@ const authController = (
   const verifyGoogleUser = asyncHandler(async (req: Request, res: Response) => {
     const { email } = req.params;
     const data = await checkUser(email, dbUserRepository, authServices);
-    res.json({ data: data });
+    res.json(data );
   });
   const updateUser = asyncHandler(async (req, res) => {
     const { username, name, phoneNumber, email, location, bio, dp } = req.body;
