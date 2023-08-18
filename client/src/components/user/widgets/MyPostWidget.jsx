@@ -2,11 +2,8 @@
 import {
   EditOutlined,
   DeleteOutlined,
-  AttachFileOutlined,
   GifBoxOutlined,
   ImageOutlined,
-  MicOutlined,
-  MoreHorizOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -16,7 +13,6 @@ import {
   useTheme,
   Button,
   IconButton,
-  useMediaQuery,
 } from "@mui/material";
 import FlexBetween from "../../FlexBetween";
 import Dropzone from "react-dropzone";
@@ -27,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../axios/axios";
 import { uploadFile } from "../../../firebase/config";
 import { setLoading, setPost } from "../../../redux/postReducer";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 //posts from redux
 
 const MyPostWidget = ({ dp, handleClick,details }) => {
