@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCkPAME7LvVXe5V15TkbAAX8J4_m9F4yRg",
-  authDomain: "https://www.circle-up.online",
+  authDomain: "circle-up.online",
   projectId: "circleup-7da4d",
   storageBucket: "circleup-7da4d.appspot.com",
   messagingSenderId: "792870786061",
