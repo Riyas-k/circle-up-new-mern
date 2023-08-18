@@ -54,9 +54,9 @@ const MyPostWidget = ({ dp, handleClick,details }) => {
 
   //api call
 
-  const handlePost = async (e) => {
+  const handlePost = async () => {
     try {
-    e.preventDefault()
+    // e.preventDefault()
     if (!image && !video) {
       return alert("pls choose image or video");
     }
