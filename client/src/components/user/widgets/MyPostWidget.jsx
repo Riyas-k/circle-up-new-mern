@@ -26,7 +26,7 @@ import { setLoading, setPost } from "../../../redux/postReducer";
 // import { useNavigate } from "react-router-dom";
 //posts from redux
 
-const MyPostWidget = ({ dp, handleClick, details }) => {
+const MyPostWidget = ({ dp, details }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [profile, setProfile] = useState("");
@@ -73,7 +73,6 @@ const MyPostWidget = ({ dp, handleClick, details }) => {
       setIsVideo(false);
       setImage(null);
       setText("");
-      handleClick();
     } else if (video) {
       // const videoContentType = "video/mp4";
       await uploadFile(video).then(async (res) => {
@@ -85,7 +84,6 @@ const MyPostWidget = ({ dp, handleClick, details }) => {
         setIsVideo(false);
         setVideo(null);
         setText("");
-        handleClick();
       });
     }
   };
