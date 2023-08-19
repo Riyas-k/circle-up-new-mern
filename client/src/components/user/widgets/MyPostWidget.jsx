@@ -2,8 +2,11 @@
 import {
   EditOutlined,
   DeleteOutlined,
+  AttachFileOutlined,
   GifBoxOutlined,
   ImageOutlined,
+  MicOutlined,
+  MoreHorizOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -13,6 +16,7 @@ import {
   useTheme,
   Button,
   IconButton,
+  useMediaQuery,
 } from "@mui/material";
 import FlexBetween from "../../FlexBetween";
 import Dropzone from "react-dropzone";
@@ -23,10 +27,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../axios/axios";
 import { uploadFile } from "../../../firebase/config";
 import { setLoading, setPost } from "../../../redux/postReducer";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //posts from redux
 
-const MyPostWidget = ({ dp, details }) => {
+const MyPostWidget = ({ dp,details }) => {
+
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [profile, setProfile] = useState("");
@@ -34,12 +39,18 @@ const MyPostWidget = ({ dp, details }) => {
   const [video, setVideo] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
   const [text, setText] = useState(null);
+  // const [isText,setIsText] = useState(false)
   const { palette } = useTheme();
-
+  // const [posts, setPosts] = useState([]);
+  //   const {_id} = useSelector(())
+  // const isNotMobile = useMediaQuery("(min-width:1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+  // const navigate = useNavigate()
 
   const user = useSelector((store) => store.user.payload.userExist);
+  // const profilePic = useSelector((store) => store.update.image);
+  // const loading = useSelector((store)=>store.post.loading)
 
   useEffect(() => {
     setProfile(dp);
@@ -48,7 +59,8 @@ const MyPostWidget = ({ dp, details }) => {
   //api call
 
   const handlePost = async (e) => {
-    e.preventDefault();
+    try {
+    e.preventDefault()
     if (!image && !video) {
       return alert("pls choose image or video");
     }
@@ -61,43 +73,52 @@ const MyPostWidget = ({ dp, details }) => {
     //     console.log(newPost);
     const userId = user._id;
     if (image) {
+      console.log(image,'image');
       // const imageContentType = "image/jpeg";
       await uploadFile(image).then((res) => {
         newPost.image = res;
         newPost.userName = user.UserName;
       });
-
+      console.log(userId,'klll');
       await axios.post(`/${userId}`, newPost);
       dispatch(setLoading());
       setIsImage(false);
       setIsVideo(false);
-      setImage(null);
+      setImage(null)
       setText("");
     } else if (video) {
+      console.log(video, "vi");
       // const videoContentType = "video/mp4";
-      await uploadFile(video).then(async (res) => {
+      await uploadFile(video).then(async(res) => {
         newPost.image = res;
         newPost.userName = user.UserName;
         await axios.post(`/${userId}`, newPost);
         dispatch(setLoading());
         setIsImage(false);
         setIsVideo(false);
-        setVideo(null);
+        setVideo(null)
         setText("");
-      });
+      })
     }
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
+  // useEffect(()=>{
+  //   post && handlePost()
+
+  //   setPosts(post)
+
+  // },[])
+  
   return (
     <WidgetWrapper boxShadow="10">
       <FlexBetween gap="1.5rem">
         {details ? (
-          <UserImage
-            image={
-              details?.dp ||
-              "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-            }
-          />
+          <UserImage image={details?.dp || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" } />
         ) : (
           <UserImage image="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" />
         )}
@@ -140,7 +161,7 @@ const MyPostWidget = ({ dp, details }) => {
               } else {
                 // Process the accepted file (in this case, set the image state)
                 setImage(acceptedFiles[0]);
-                console.log(image, "god");
+                console.log(image,'god');
                 setVideo(false);
               }
             }}
@@ -204,7 +225,7 @@ const MyPostWidget = ({ dp, details }) => {
                 // Process the accepted file (in this case, set the video state)
                 setVideo(acceptedFiles[0]);
                 // setImage(false)
-                console.log(video, "hoi");
+                console.log(video,'hoi');
               }
             }}
           >
@@ -291,7 +312,7 @@ const MyPostWidget = ({ dp, details }) => {
         )} */}
         <Button
           disabled={!text}
-          onClick={(e) => handlePost(e)}
+          onClick={(e)=>handlePost(e)}
           sx={{
             color: "white",
             backgroundColor: palette.primary.main,

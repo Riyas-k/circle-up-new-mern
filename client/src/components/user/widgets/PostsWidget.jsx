@@ -29,30 +29,25 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     dispatch(setPost(res.data));
     setIsLoading(false);
     setPosts(res.data);
-    // if(follow)
+    // if(loading){
+    //   dispatch(setLoading());
+    // }
 
-    // dispatch(followLoading())
-    // dispatch(deletedLoading())
   };
   const getUserPosts = async () => {
     // if(isProfile){
     const res = await axios.get(`/post/${userId}`);
     setIsLoading(false);
     setPosts(res.data);
-    // }else{
-    //   fetchPosts()
-    // }
-
-    // dispatch(profileLoading());
-    // dispatch(deletedLoading())
   };
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2; // Change the number of posts per page here
 
   // Pagination Logic
+  const reversedPosts = [...posts].reverse(); // Create a reversed copy of the posts array
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = reversedPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -96,7 +91,7 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     }
   }, [liked, isProfile]);
   useEffect(() => {
-    if ( isProfile ||(follow && isProfile) ) {
+    if ( isProfile ||follow && isProfile ) {
       getUserPosts();
     } else {
       fetchPosts();
@@ -120,7 +115,7 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
             <LinearProgress color="inherit" />
           </Box>
         </>
-      ) : posts?.length === 0 ? (
+      ) : currentPosts.length === 0 ? (
         isProfile ? (
           <h6
             style={{
@@ -144,7 +139,6 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
         )
       ) : (
         currentPosts
-          .reverse()
           .map(
             ({
               _id,
@@ -186,10 +180,10 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
             }
           )
       )}
-      {currentPosts?.length > 0 && (
+      {currentPosts.length > 0 && (
         <Box display="flex" justifyContent="center" mt={3}>
           <Pagination
-            count={Math.ceil(posts?.length / postsPerPage)}
+            count={Math.ceil(posts.length / postsPerPage)}
             page={currentPage} variant="outlined"
             onChange={(event, page) => paginate(page)}
             color="primary"

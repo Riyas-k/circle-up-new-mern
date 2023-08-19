@@ -16,7 +16,6 @@ import { clearUser } from "../../redux/singlereducer";
 // import { useDispatch, useSelector } from "react-redux";
 
 function Home({ block }) {
-  console.log(block,'home blck');
   const navigate = useNavigate();
   const dispatch = useDispatch()
   useEffect(() => {
