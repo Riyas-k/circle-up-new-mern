@@ -15,7 +15,7 @@ import { Box, LinearProgress, Pagination } from "@mui/material";
 
 const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const [posts, setPosts] = useState([]);
   let loading = useSelector((store) => store.post.loading);
@@ -25,27 +25,25 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   // const data = useSelector((store) => store.post);
   const follow = useSelector((store) => store?.follow?.loading);
   const fetchPosts = async () => {
-    let click = true
+    let click = true;
     const res = await axios.get(`/posts/${userId}`);
     dispatch(setPost(res.data));
-    setIsLoading(false);
+    // setIsLoading(false);
     setPosts(res.data);
-    if(!loading && click){
-    
+    if (!loading && click) {
       dispatch(setLoading());
-      click=false
-   }
+      click = false;
+    }
   };
   const getUserPosts = async () => {
-    let run = true
+    let run = true;
     const res = await axios.get(`/post/${userId}`);
-    setIsLoading(false);
+    // setIsLoading(false);
     setPosts(res.data);
-      if(loading && run){
-       
-        dispatch(setLoading());
-        run=false
-     }
+    if (loading && run) {
+      dispatch(setLoading());
+      run = false;
+    }
   };
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2; // Change the number of posts per page here
@@ -68,11 +66,10 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
       fetchPosts();
       // dispatch(setLoading());
     } else if (!loading && isProfile) {
-     
       getUserPosts();
       // dispatch(setLoading());
     }
-  }, [loading, posts,isProfile]);
+  }, [loading, posts, isProfile]);
 
   useEffect(() => {
     if (deleted && isProfile) {
@@ -118,20 +115,12 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   // console.log(isProfile,'pro true');
   return (
     <>
-      {isLoading ? (
-        <>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <LinearProgress color="secondary" />
-            <LinearProgress color="success" />
-            <LinearProgress color="inherit" />
-          </Box>
-        </>
-      ) : currentPosts.length === 0 ? (
+      {currentPosts.length === 0 ? (
         isProfile ? (
           <h6
             style={{
               variant: "body2",
-              textAlign: "center", // Center-align the button
+              textAlign: "center",
               marginTop: "20px",
             }}
           >
@@ -141,7 +130,7 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
           <h6
             style={{
               variant: "body2",
-              textAlign: "center", // Center-align the button
+              textAlign: "center",
               marginTop: "20px",
             }}
           >
@@ -163,7 +152,6 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
             adminDeleted,
           }) => {
             if (!adminDeleted) {
-              // Check if adminDeleted is false
               return (
                 <PostWidget
                   key={_id}
@@ -185,7 +173,7 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
                 />
               );
             } else {
-              return null; // Skip rendering the PostWidget if adminDeleted is true
+              return null;
             }
           }
         )
