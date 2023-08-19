@@ -35,7 +35,7 @@ export default function SignUp() {
     lastName: "",
     UserName: "",
     phone: "",
-    email: "",
+    email: "", 
     password: "",
   };
   const navigate = useNavigate();
