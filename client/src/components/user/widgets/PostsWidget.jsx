@@ -18,27 +18,34 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [posts, setPosts] = useState([]);
-  const loading = useSelector((store) => store.post.loading);
+  let loading = useSelector((store) => store.post.loading);
   const deleted = useSelector((store) => store.post.deleted);
   const comment = useSelector((store) => store.post.comment);
   const liked = useSelector((store) => store.post.liked);
   // const data = useSelector((store) => store.post);
   const follow = useSelector((store) => store?.follow?.loading);
   const fetchPosts = async () => {
+    let click = true
     const res = await axios.get(`/posts/${userId}`);
     dispatch(setPost(res.data));
     setIsLoading(false);
     setPosts(res.data);
-    // if(loading){
-    //   dispatch(setLoading());
-    // }
-
+    if(!loading && click){
+    
+      dispatch(setLoading());
+      click=false
+   }
   };
   const getUserPosts = async () => {
-    // if(isProfile){
+    let run = true
     const res = await axios.get(`/post/${userId}`);
     setIsLoading(false);
     setPosts(res.data);
+      if(loading && run){
+       
+        dispatch(setLoading());
+        run=false
+     }
   };
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2; // Change the number of posts per page here
@@ -56,12 +63,16 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     setPosts(!posts);
   };
 
-  // useEffect(() => {
-  //   if (loading) {
-  //     fetchPosts();
-  //     dispatch(setLoading());
-  //   }
-  // }, [loading, posts]);
+  useEffect(() => {
+    if (loading && !isProfile) {
+      fetchPosts();
+      // dispatch(setLoading());
+    } else if (!loading && isProfile) {
+     
+      getUserPosts();
+      // dispatch(setLoading());
+    }
+  }, [loading, posts,isProfile]);
 
   useEffect(() => {
     if (deleted && isProfile) {
@@ -91,7 +102,7 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
     }
   }, [liked, isProfile]);
   useEffect(() => {
-    if ( isProfile ||follow && isProfile ) {
+    if (isProfile || (follow && isProfile)) {
       getUserPosts();
     } else {
       fetchPosts();
@@ -138,53 +149,53 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
           </h6>
         )
       ) : (
-        currentPosts
-          .map(
-            ({
-              _id,
-              userId,
-              description,
-              userName,
-              image,
-              likes,
-              comments,
-              report,
-              createdAt,
-              adminDeleted,
-            }) => {
-              if (!adminDeleted) {
-                // Check if adminDeleted is false
-                return (
-                  <PostWidget
-                    key={_id}
-                    postId={_id}
-                    postUserId={userId}
-                    postCreatedAt={createdAt}
-                    description={description}
-                    name={userName}
-                    image={image}
-                    likes={likes}
-                    getUserPosts={getUserPosts}
-                    comments={comments}
-                    buttonClicked={buttonClicked}
-                    dp={dp}
-                    report={report}
-                    fetchPosts={fetchPosts}
-                    isProfile={isProfile ? isProfile : false}
-                    socket={socket}
-                  />
-                );
-              } else {
-                return null; // Skip rendering the PostWidget if adminDeleted is true
-              }
+        currentPosts.map(
+          ({
+            _id,
+            userId,
+            description,
+            userName,
+            image,
+            likes,
+            comments,
+            report,
+            createdAt,
+            adminDeleted,
+          }) => {
+            if (!adminDeleted) {
+              // Check if adminDeleted is false
+              return (
+                <PostWidget
+                  key={_id}
+                  postId={_id}
+                  postUserId={userId}
+                  postCreatedAt={createdAt}
+                  description={description}
+                  name={userName}
+                  image={image}
+                  likes={likes}
+                  getUserPosts={getUserPosts}
+                  comments={comments}
+                  buttonClicked={buttonClicked}
+                  dp={dp}
+                  report={report}
+                  fetchPosts={fetchPosts}
+                  isProfile={isProfile ? isProfile : false}
+                  socket={socket}
+                />
+              );
+            } else {
+              return null; // Skip rendering the PostWidget if adminDeleted is true
             }
-          )
+          }
+        )
       )}
       {currentPosts.length > 0 && (
         <Box display="flex" justifyContent="center" mt={3}>
           <Pagination
             count={Math.ceil(posts.length / postsPerPage)}
-            page={currentPage} variant="outlined"
+            page={currentPage}
+            variant="outlined"
             onChange={(event, page) => paginate(page)}
             color="primary"
           />
