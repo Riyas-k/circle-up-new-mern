@@ -61,13 +61,12 @@ const MyPostWidget = ({ dp, handleClick, details }) => {
     //     console.log(newPost);
     const userId = user._id;
     if (image) {
-      console.log(image, "image");
       // const imageContentType = "image/jpeg";
       await uploadFile(image).then((res) => {
         newPost.image = res;
         newPost.userName = user.UserName;
       });
-      
+
       await axios.post(`/${userId}`, newPost);
       dispatch(setLoading());
       setIsImage(false);
@@ -76,7 +75,6 @@ const MyPostWidget = ({ dp, handleClick, details }) => {
       setText("");
       handleClick();
     } else if (video) {
-      console.log(video, "vi");
       // const videoContentType = "video/mp4";
       await uploadFile(video).then(async (res) => {
         newPost.image = res;
