@@ -66,11 +66,11 @@ const PostsWidget = ({ click, isProfile, userId, dp, socket }) => {
   useEffect(() => {
     if (loading && !isProfile) {
       fetchPosts();
-      // dispatch(setLoading());
+      dispatch(setLoading());
     } else if (!loading && isProfile) {
      
       getUserPosts();
-      // dispatch(setLoading());
+      dispatch(setLoading());
     }
   }, [loading, posts,isProfile]);
 

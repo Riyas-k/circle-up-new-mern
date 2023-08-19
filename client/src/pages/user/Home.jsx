@@ -34,6 +34,7 @@ function Home({ block }) {
   // },[blockUserLoading])
   const isNotMobile = useMediaQuery("(min-width:1000px)");
   const data = useSelector((store) => store.user?.payload.userExist);
+  console.log(data,'jo');
   const { _id } = data;
   const { dp } = data;
   const [click, setClick] = useState(false);
