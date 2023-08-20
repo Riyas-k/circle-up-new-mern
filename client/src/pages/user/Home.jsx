@@ -33,7 +33,7 @@ function Home({ block }) {
   //   }
   // },[blockUserLoading])
   const isNotMobile = useMediaQuery("(min-width:1000px)");
-  const data = useSelector((store) => store.user?.payload.userExist);
+  const data = useSelector((store) => store.user?.payload.userExist || store.user);
   console.log(data,'jo');
   const { _id } = data;
   const { dp } = data;
