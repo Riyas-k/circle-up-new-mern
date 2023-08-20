@@ -82,12 +82,12 @@ export default function SignIn() {
         console.log(res.data,'data,hello');
         if (res.data) {
           let response = {
-            data:res.data.data?.isEmailExist
+            userExist:res.data.data?.isEmailExist
           }
           console.log(response,'data,hoooooooo');
 
-          dispatch(setUserDetails({ payload: response.data }));
-          dispatch(setUser({payload:response.data}))
+          dispatch(setUserDetails({ payload: response.userExist }));
+          dispatch(setUser({payload:response.userExist}))
           navigate("/");
         }
       });
