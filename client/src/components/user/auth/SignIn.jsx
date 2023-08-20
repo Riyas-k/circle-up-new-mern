@@ -81,8 +81,8 @@ export default function SignIn() {
       await axios.get(`/verify-google-user/${email}`).then((res) => {
         console.log(res.data,'data,hello');
         if (res.data) {
-          dispatch(setUserDetails({ payload: res.data }));
-          dispatch(setUser({payload:res.data}))
+          dispatch(setUserDetails({ payload: res.data.data.isEmailExist }));
+          dispatch(setUser({payload:res.data.data.isEmailExist}))
           navigate("/");
         }
       });

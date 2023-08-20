@@ -78,7 +78,7 @@ export default function Header({ socket }) {
   const [notificationAnchorEl, setNotificationAnchorEl] = React.useState(null);
   const [notifications, setNotifications] = React.useState([]);
   const theme = useTheme();
-  const user = useSelector((store) => store.user.payload || store.user.payload.data?.isEmailExist);
+  const user = useSelector((store) => store.user.payload);
   console.log(user,'heavy user');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
