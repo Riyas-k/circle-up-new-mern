@@ -86,8 +86,8 @@ export default function SignIn() {
           }
           console.log(response,'data,hoooooooo');
 
-          dispatch(setUserDetails({ payload: response.userExist }));
-          dispatch(setUser({payload:response.userExist}))
+          dispatch(setUserDetails({ payload: response }));
+          dispatch(setUser({payload:response}))
           navigate("/");
         }
       });
