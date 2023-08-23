@@ -84,13 +84,13 @@ const FriendListWidget = ({
 
   useEffect(() => {
     if (expanded) {
-      setFollowersToShow(followers);
-      setFollowingToShow(following);
-      setSuggestionsToShow(suggestions);
+      setFollowersToShow([...followers]);
+      setFollowingToShow([...following]);
+      setSuggestionsToShow([...suggestions]);
     } else {
-      setFollowersToShow(followers.slice(0, itemsPerRow));
-      setFollowingToShow(following.slice(0, itemsPerRow));
-      setSuggestionsToShow(suggestions.slice(0, itemsPerRow));
+      setFollowersToShow([...followers.slice(0, itemsPerRow)]);
+      setFollowingToShow([...following.slice(0, itemsPerRow)]);
+      setSuggestionsToShow([...suggestions.slice(0, itemsPerRow)]);
     }
   }, [followers, following, suggestions, expanded]);
   const handleViewMore = () => {
